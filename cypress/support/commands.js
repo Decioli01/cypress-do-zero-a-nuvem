@@ -10,7 +10,13 @@
 //
 //
 // -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
+ Cypress.Commands.add('fillMandatoryFieldsAndSubmit', (firstName, lastName, email) => {
+    cy.get('[name="firstName"]').type(firstName)
+    cy.get('[name="lastName"]').type(lastName)
+    cy.get('input#email',).type(email)
+    cy.get('[name="open-text-area"]').type('Testando campo de texto')
+    cy.contains('Enviar').click()
+ })
 //
 //
 // -- This is a child command --

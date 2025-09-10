@@ -25,7 +25,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
 
     cy.get('.error').should('be.visible')
   })
-  it.only('campo telefone continua vazio quando digitado valor não-numerico', () => {
+  it('campo telefone continua vazio quando digitado valor não-numerico', () => {
     cy.get('input#phone')
       .type('testeTelefone')
       .should('have.value', '')
@@ -52,5 +52,9 @@ describe('Central de Atendimento ao Cliente TAT', () => {
   it('exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', () => {
     cy.contains('Enviar').click()
     cy.get('.error').should('be.visible')
+  })
+  it.only('envia o formuário com sucesso usando um comando customizado', () => {
+    cy.fillMandatoryFieldsAndSubmit('Eduardo', 'Decioli', 'Eduardo@yahoo.com')
+    cy.get('.success').should('be.visible')
   })
 })
