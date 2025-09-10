@@ -25,6 +25,11 @@ describe('Central de Atendimento ao Cliente TAT', () => {
 
     cy.get('.error').should('be.visible')
   })
+  it.only('campo telefone continua vazio quando digitado valor não-numerico', () => {
+    cy.get('input#phone')
+      .type('testeTelefone')
+      .should('have.value', '')
+  })
   it('exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário', () => {
     cy.get('[name="firstName"]').type('Eduardo')
     cy.get('[name="lastName"]').type('Decioli')
@@ -42,7 +47,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     cy.get('[name="firstName"]').type('Eduardo').should('have.value', 'Eduardo').clear().should('have.value', '')
     cy.get('[name="lastName"]').type('Decioli').should('have.value', 'Decioli').clear().should('have.value', '')
     cy.get('input#email').type('eduardo@yahoo.com').should('have.value', 'eduardo@yahoo.com').clear().should('have.value', '')
-    cy.get(':nth-child(2) > [name="phone"]').type('14998529770').should('have.value', '14998529770').clear().should('have.value', '')
+    cy.get('input#phone').type('14998529770').should('have.value', '14998529770').clear().should('have.value', '')
   })
   it('exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', () => {
     cy.contains('Enviar').click()
