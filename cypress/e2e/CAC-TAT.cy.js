@@ -114,4 +114,27 @@ describe('Central de Atendimento ao Cliente TAT', () => {
         expect(input[0].files[0].name).to.equal('example.json')
       })
   })
+  it('seleciona um arquivo utilizando uma fixture para a qual foi dada um alias', () => {
+    cy.fixture('example.json').as('sampleFile')
+
+    cy.get('#file-upload')
+      .selectFile('@sampleFile')
+      .should((input) => {
+        expect(input[0].files[0].name).to.equal('example.json')
+      })
+  })
+
+  //testando links que abrem em nova aba
+  it.only('verifica que a política de privacidade abre em outra aba sem a necessidade de um clique', () => {
+    cy.contains('a', 'Política de Privacidade')
+      .should('have.attr', 'target', '_blank')
+      .and('have.attr', 'href', 'privacy.html')
+  })
+  it.only('acessa a página da política de privacidade removendo o target e então clicando no link', () => {
+    cy.contains('a', 'Política de Privacidade')
+      .invoke('removeAttr', 'target')
+      .click()
+    cy.contains('CAC TAT - Política de Privacidade')
+      .should('be.visible')
+  })
 })
